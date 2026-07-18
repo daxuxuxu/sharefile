@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>海外整合营销能力架构与资产复用闭环</title>
+<style>
+  :root {
+    --ink: #102A43;
+    --slate: #486581;
+    --muted: #829AB1;
+    --canvas: #F5F8FC;
+    --line: #D9E2EC;
+    --white: #FFFFFF;
+    --navy: #163B67;
+    --blue: #3D63D8;
+    --blue-soft: #EEF3FF;
+    --orange: #E86D3E;
+    --orange-soft: #FFF2EC;
+    --green: #159A78;
+    --green-soft: #EAF9F4;
+    --purple: #7D55C7;
+    --purple-soft: #F4F0FF;
+    --gold: #D79613;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    width: 2400px;
+    min-height: 1500px;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 94% 3%, rgba(61, 99, 216, .10), transparent 20%),
+      radial-gradient(circle at 4% 93%, rgba(21, 154, 120, .08), transparent 20%),
+      var(--canvas);
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .page { padding: 68px 88px 45px; }
+
+  .topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 17px;
+    border-radius: 999px;
+    background: #EAF0FC;
+    color: #2C4F85;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: .13em;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 0 6px rgba(61,99,216,.14);
+  }
+
+  .source { color: #69829C; font-size: 18px; }
+
+  h1 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 57px;
+    letter-spacing: -.04em;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    margin: 16px 0 31px;
+    color: var(--slate);
+    font-size: 24px;
+    line-height: 1.45;
+  }
+
+  .outcomes {
+    display: grid;
+    grid-template-columns: 1.32fr repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .outcome-lead, .outcome {
+    min-height: 108px;
+    border: 1px solid #DEE8F1;
+    border-radius: 16px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 8px 22px rgba(16,42,67,.055);
+  }
+
+  .outcome-lead {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 26px 19px 31px;
+  }
+
+  .outcome-lead::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+    background: linear-gradient(180deg, var(--blue), var(--purple));
+  }
+
+  .outcome-lead .small {
+    color: var(--blue);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .12em;
+  }
+
+  .outcome-lead .big {
+    margin-top: 7px;
+    font-size: 25px;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+
+  .outcome {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 19px;
+  }
+
+  .outcome-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+  }
+  .o1 { background: var(--orange); }
+  .o2 { background: var(--blue); }
+  .o3 { background: var(--green); }
+  .o4 { background: var(--purple); }
+
+  .outcome-title { font-size: 19px; font-weight: 900; line-height: 1.2; }
+  .outcome-copy { margin-top: 5px; color: #69829C; font-size: 15px; line-height: 1.35; }
+
+  .panel {
+    position: relative;
+    background: rgba(255,255,255,.96);
+    border: 1px solid #DCE7F0;
+    border-radius: 22px;
+    box-shadow: 0 16px 38px rgba(16,42,67,.075);
+    overflow: hidden;
+  }
+
+  .arch-panel { padding: 28px 31px 29px; }
+
+  .panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 19px;
+  }
+
+  .section-mark {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--blue);
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: .14em;
+  }
+
+  .section-mark::before { content: ""; width: 25px; height: 5px; border-radius: 9px; background: var(--blue); }
+
+  .panel-heading h2 { margin: 8px 0 0; font-size: 30px; letter-spacing: -.025em; }
+  .panel-note { padding-top: 7px; color: #69829C; font-size: 16px; text-align: right; line-height: 1.45; }
+
+  .capability-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    padding-bottom: 61px;
+  }
+
+  .capability {
+    position: relative;
+    min-height: 247px;
+    padding: 22px 21px 17px;
+    border: 1px solid;
+    border-radius: 16px;
+    overflow: visible;
+  }
+
+  .capability::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -62px;
+    width: 2px;
+    height: 62px;
+    transform: translateX(-50%);
+    background: currentColor;
+    opacity: .34;
+  }
+
+  .capability::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 5px);
+    bottom: -66px;
+    z-index: 2;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 5px white;
+  }
+
+  .plan { color: var(--blue); background: var(--blue-soft); border-color: #D8E2FF; }
+  .campaign { color: var(--orange); background: var(--orange-soft); border-color: #FFDCD0; }
+  .channel { color: var(--green); background: var(--green-soft); border-color: #D3F1E5; }
+  .enable { color: var(--purple); background: var(--purple-soft); border-color: #E3D9FF; }
+
+  .capability-top { display: flex; justify-content: space-between; align-items: center; }
+  .capability-tag {
+    padding: 6px 9px;
+    border-radius: 7px;
+    background: rgba(255,255,255,.74);
+    border: 1px solid rgba(255,255,255,.95);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .1em;
+  }
+  .capability-index { font-size: 27px; font-weight: 900; opacity: .42; letter-spacing: -.05em; }
+
+  .capability h3 {
+    margin: 15px 0 7px;
+    color: var(--ink);
+    font-size: 23px;
+    line-height: 1.18;
+    letter-spacing: -.02em;
+  }
+
+  .capability-desc { min-height: 41px; color: #597089; font-size: 15px; line-height: 1.38; }
+
+  .mini-list { margin: 14px 0 0; padding: 0; list-style: none; }
+  .mini-list li {
+    position: relative;
+    margin: 7px 0 0;
+    padding-left: 16px;
+    color: #324A61;
+    font-size: 15px;
+    line-height: 1.34;
+    font-weight: 700;
+  }
+  .mini-list li::before { content: ""; position: absolute; left: 0; top: .48em; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  .hub {
+    position: relative;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 21px;
+    min-height: 146px;
+    padding: 20px 22px;
+    border: 1px solid #CFDCF0;
+    border-radius: 17px;
+    background: linear-gradient(100deg, #173C68 0%, #244F84 48%, #355D95 100%);
+    color: white;
+  }
+
+  .hub::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    width: 73%;
+    height: 4px;
+    border-radius: 0 0 8px 8px;
+    background: linear-gradient(90deg, var(--blue), #6C8AF4, #A77BE8);
+  }
+
+  .hub-kicker { color: #B9D1EF; font-size: 14px; letter-spacing: .11em; font-weight: 900; }
+  .hub-title { margin-top: 9px; font-size: 25px; font-weight: 900; line-height: 1.25; }
+  .hub-copy { margin-top: 7px; color: #C6D8EC; font-size: 14px; line-height: 1.45; }
+
+  .hub-assets { display: flex; flex-wrap: wrap; align-content: center; gap: 9px; }
+  .asset-pill {
+    padding: 9px 13px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    background: rgba(255,255,255,.11);
+    color: #F7FBFF;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .flow-panel { margin-top: 24px; padding: 27px 31px 29px; }
+  .flow-panel .section-mark { color: var(--green); }
+  .flow-panel .section-mark::before { background: var(--green); }
+  .flow-panel .panel-heading { margin-bottom: 15px; }
+
+  .flow-title-row { display: flex; align-items: center; justify-content: space-between; }
+  .cycle-message {
+    padding: 8px 13px;
+    border: 1px solid #DBEAE6;
+    border-radius: 999px;
+    color: #147C63;
+    background: #F0FAF6;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .flow-wrap { position: relative; padding: 11px 5px 45px; }
+  .steps {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+  }
+
+  .step {
+    position: relative;
+    min-height: 149px;
+    padding: 18px 15px 14px 18px;
+    border: 1px solid #DDE7F0;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 6px 15px rgba(16,42,67,.04);
+  }
+
+  .step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    z-index: 4;
+    top: 56px;
+    right: -17px;
+    color: #8AA0B6;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .step-number { color: #8AA0B6; font-size: 13px; font-weight: 900; letter-spacing: .1em; }
+  .step h4 { margin: 8px 0 6px; font-size: 19px; line-height: 1.2; }
+  .step p { margin: 0; color: #607D98; font-size: 14px; line-height: 1.42; }
+  .step .accent { position: absolute; left: 0; top: 20px; bottom: 20px; width: 4px; border-radius: 0 4px 4px 0; }
+  .s1 .accent { background: var(--blue); }
+  .s2 .accent { background: var(--orange); }
+  .s3 .accent { background: var(--purple); }
+  .s4 .accent { background: var(--gold); }
+  .s5 .accent { background: var(--green); }
+  .s6 .accent { background: #285B89; }
+
+  .loop-svg {
+    position: absolute;
+    z-index: 1;
+    left: 1px;
+    right: 1px;
+    bottom: 0;
+    width: calc(100% - 2px);
+    height: 72px;
+    overflow: visible;
+  }
+
+  .loop-label {
+    position: absolute;
+    z-index: 3;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 14px;
+    border-radius: 999px;
+    color: #356783;
+    background: #F6FAFD;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 19px 3px 0;
+    color: #7189A1;
+    font-size: 15px;
+  }
+
+  .legend { display: flex; align-items: center; gap: 18px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .l1 { background: var(--blue); } .l2 { background: var(--orange); } .l3 { background: var(--green); } .l4 { background: var(--purple); }
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <div class="eyebrow">H1 MARKETING OPERATING MODEL</div>
+      <div class="source">基于年中述职：全球营销体系 · 新品上市 · 海外开业 · 会员与渠道运营</div>
+    </div>
+
+    <h1>海外整合营销能力架构 × 资产复用闭环</h1>
+    <p class="subtitle">以业务增长为牵引，将策略、战役、渠道与用户运营沉淀为可标准化、可本地化、可多国复用的营销能力。</p>
+
+    <section class="outcomes">
+      <div class="outcome-lead">
+        <div class="small">BUSINESS OBJECTIVES</div>
+        <div class="big">Growth 驱动 Build，Build 赋能 Growth</div>
+      </div>
+      <div class="outcome"><div class="outcome-icon o1">$</div><div><div class="outcome-title">业绩与客流增长</div><div class="outcome-copy">新品、门店、渠道协同转化</div></div></div>
+      <div class="outcome"><div class="outcome-icon o2">◎</div><div><div class="outcome-title">品牌声量与认知</div><div class="outcome-copy">市场首发、内容传播、品牌一致性</div></div></div>
+      <div class="outcome"><div class="outcome-icon o3">U</div><div><div class="outcome-title">用户资产与留存</div><div class="outcome-copy">会员体系、APP、触达与复购</div></div></div>
+      <div class="outcome"><div class="outcome-icon o4">↗</div><div><div class="outcome-title">规模化与资源效率</div><div class="outcome-copy">标准资产、多国复用、协同提效</div></div></div>
+    </section>
+
+    <section class="panel arch-panel">
+      <div class="panel-heading">
+        <div>
+          <div class="section-mark">CAPABILITY ARCHITECTURE</div>
+          <h2>营销能力架构：四大能力模块，共享一个方法论中台</h2>
+        </div>
+        <div class="panel-note">从“完成项目”升级为“建设体系”<br>用标准化保障效率，用本地化提升适配</div>
+      </div>
+
+      <div class="capability-grid">
+        <article class="capability plan">
+          <div class="capability-top"><span class="capability-tag">BUILD</span><span class="capability-index">01</span></div>
+          <h3>策略规划<br>与节奏管理</h3>
+          <div class="capability-desc">统一业务目标、国家需求与年度营销节奏，提升前置规划能力。</div>
+          <ul class="mini-list">
+            <li>Global Marketing Calendar</li>
+            <li>Campaign Strategy / IMC 方案</li>
+            <li>国家需求与项目优先级管理</li>
+          </ul>
+        </article>
+
+        <article class="capability campaign">
+          <div class="capability-top"><span class="capability-tag">GROWTH</span><span class="capability-index">02</span></div>
+          <h3>新品上市<br>与开业战役</h3>
+          <div class="capability-desc">围绕产品与门店关键节点，驱动认知、试用、到店与转化。</div>
+          <ul class="mini-list">
+            <li>Product Launch Playbook</li>
+            <li>Opening Playbook / Timeline</li>
+            <li>品牌、PR、社媒与门店整合传播</li>
+          </ul>
+        </article>
+
+        <article class="capability channel">
+          <div class="capability-top"><span class="capability-tag">GROWTH</span><span class="capability-index">03</span></div>
+          <h3>渠道增长<br>与用户运营</h3>
+          <div class="capability-desc">连接线上线下渠道与数字化用户，实现拉新、转化、留存闭环。</div>
+          <ul class="mini-list">
+            <li>线上 / 线下 / 外卖渠道运营</li>
+            <li>APP 会员、积分与优惠券能力</li>
+            <li>内容触达、招商赋能与复购运营</li>
+          </ul>
+        </article>
+
+        <article class="capability enable">
+          <div class="capability-top"><span class="capability-tag">ENABLE</span><span class="capability-index">04</span></div>
+          <h3>协同机制<br>与组织赋能</h3>
+          <div class="capability-desc">把高频、重复的工作流程化、模板化，提升总部与国家团队协同效率。</div>
+          <ul class="mini-list">
+            <li>Marketing Workflow / Campaign SOP</li>
+            <li>跨部门推进、复盘与资源共享</li>
+            <li>Brief 模板、案例库与 Best Practice</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="hub">
+        <div>
+          <div class="hub-kicker">SHARED ASSET &amp; METHODOLOGY HUB</div>
+          <div class="hub-title">营销资产与方法论中台</div>
+          <div class="hub-copy">把项目经验沉淀为全局可调用的标准资产，支持多市场快速复制与持续优化。</div>
+        </div>
+        <div class="hub-assets">
+          <span class="asset-pill">营销日历</span>
+          <span class="asset-pill">SOP / Workflow</span>
+          <span class="asset-pill">Playbook</span>
+          <span class="asset-pill">Toolkit</span>
+          <span class="asset-pill">Checklist</span>
+          <span class="asset-pill">Campaign / Design Brief</span>
+          <span class="asset-pill">资产素材库</span>
+          <span class="asset-pill">案例库 / Best Practice</span>
+          <span class="asset-pill">复盘机制</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel flow-panel">
+      <div class="flow-title-row">
+        <div>
+          <div class="section-mark">ASSET REUSE LOOP</div>
+          <h2 style="margin:8px 0 0;font-size:30px;letter-spacing:-.025em;">资产复用流程：从业务需求到方法论迭代</h2>
+        </div>
+        <div class="cycle-message">总部统一框架 + 国家本地化执行</div>
+      </div>
+
+      <div class="flow-wrap">
+        <div class="steps">
+          <article class="step s1"><span class="accent"></span><div class="step-number">STEP 01</div><h4>业务输入</h4><p>明确业务目标、国家需求、产品与门店节奏、增长机会。</p></article>
+          <article class="step s2"><span class="accent"></span><div class="step-number">STEP 02</div><h4>策略设计</h4><p>形成营销日历、整合营销策略、资源优先级与项目方案。</p></article>
+          <article class="step s3"><span class="accent"></span><div class="step-number">STEP 03</div><h4>标准资产包</h4><p>输出 Playbook、Toolkit、Brief、Checklist 与标准流程。</p></article>
+          <article class="step s4"><span class="accent"></span><div class="step-number">STEP 04</div><h4>本地化落地</h4><p>结合国家文化、渠道结构、消费者习惯与门店场景适配执行。</p></article>
+          <article class="step s5"><span class="accent"></span><div class="step-number">STEP 05</div><h4>数据验证</h4><p>追踪业绩、客流、用户、声量与渠道效率，验证增长效果。</p></article>
+          <article class="step s6"><span class="accent"></span><div class="step-number">STEP 06</div><h4>复盘沉淀</h4><p>沉淀案例、更新 SOP 与模板，形成可复制的 Best Practice。</p></article>
+        </div>
+        <svg class="loop-svg" viewBox="0 0 2160 72" preserveAspectRatio="none" aria-hidden="true">
+          <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7893AD" /></marker></defs>
+          <path d="M1995 4 C2140 4, 2155 10, 2155 31 L2155 43 C2155 59, 2138 65, 2118 65 L47 65 C27 65, 10 59, 10 43 L10 34 C10 17, 27 7, 50 7" fill="none" stroke="#B9C9D8" stroke-width="2" stroke-dasharray="6 7" marker-end="url(#arrow)" />
+        </svg>
+        <div class="loop-label">复盘反馈 → 更新资产 → 进入下一轮策略与落地</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="legend"><span><i class="l1"></i>策略与规划</span><span><i class="l2"></i>新品与开业战役</span><span><i class="l3"></i>渠道与用户运营</span><span><i class="l4"></i>协同与赋能</span></div>
+      <div>核心原则：一次建设，多国复用；统一框架，本地适配。</div>
+    </footer>
+  </main>
+</body>
+</html>
