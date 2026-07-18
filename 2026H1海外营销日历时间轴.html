@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 H1 海外营销日历时间轴</title>
+<style>
+  :root {
+    --ink: #102A43;
+    --muted: #627D98;
+    --line: #D9E2EC;
+    --canvas: #F7FAFC;
+    --white: #FFFFFF;
+    --product: #EC6A45;
+    --product-soft: #FFF1EC;
+    --brand: #5267D5;
+    --brand-soft: #EEF0FF;
+    --market: #159B78;
+    --market-soft: #E7F8F2;
+    --gold: #D99700;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    width: 2400px;
+    min-height: 1350px;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 93% 4%, rgba(82, 103, 213, .10), transparent 18%),
+      radial-gradient(circle at 7% 94%, rgba(21, 155, 120, .09), transparent 20%),
+      var(--canvas);
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .page {
+    width: 2400px;
+    min-height: 1350px;
+    padding: 74px 92px 66px;
+  }
+
+  .topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    color: #2B4C7E;
+    background: #EAF1FC;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: .12em;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--brand);
+    box-shadow: 0 0 0 6px rgba(82, 103, 213, .13);
+  }
+
+  .source {
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 57px;
+    line-height: 1.12;
+    letter-spacing: -.035em;
+    color: #102A43;
+  }
+
+  .subtitle {
+    margin: 18px 0 0;
+    font-size: 25px;
+    line-height: 1.55;
+    color: #486581;
+  }
+
+  .headline-row {
+    display: grid;
+    grid-template-columns: 1.45fr .82fr .82fr .82fr;
+    gap: 18px;
+    margin: 40px 0 36px;
+  }
+
+  .summary, .metric {
+    min-height: 112px;
+    background: rgba(255,255,255,.95);
+    border: 1px solid #E5EDF5;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(16,42,67,.06);
+  }
+
+  .summary {
+    position: relative;
+    overflow: hidden;
+    padding: 21px 26px 20px 30px;
+  }
+
+  .summary::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 7px;
+    background: linear-gradient(180deg, var(--brand), #8B5CF6);
+  }
+
+  .summary-label {
+    color: var(--brand);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .1em;
+  }
+
+  .summary-text {
+    margin-top: 7px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .metric {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+  }
+
+  .metric .bar {
+    width: 6px;
+    height: 59px;
+    border-radius: 10px;
+  }
+
+  .metric.product .bar { background: var(--product); }
+  .metric.brand .bar { background: var(--brand); }
+  .metric.market .bar { background: var(--market); }
+
+  .metric-value {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.03em;
+  }
+
+  .metric-label {
+    margin-top: 6px;
+    font-size: 18px;
+    line-height: 1.25;
+    color: var(--muted);
+  }
+
+  .calendar-card {
+    background: rgba(255,255,255,.97);
+    border: 1px solid #E1EAF2;
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(16,42,67,.08);
+    overflow: hidden;
+  }
+
+  .calendar-header {
+    display: grid;
+    grid-template-columns: 260px repeat(6, 1fr);
+    min-height: 132px;
+    background: #102A43;
+    color: white;
+  }
+
+  .axis-title {
+    display: flex;
+    align-items: center;
+    padding: 27px 32px;
+    color: #B9CBE0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .month {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 19px 27px;
+    border-left: 1px solid rgba(255,255,255,.16);
+  }
+
+  .month-num {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -.04em;
+  }
+
+  .month-name {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #B9CBE0;
+    font-weight: 700;
+    letter-spacing: .1em;
+  }
+
+  .month::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #A9C7ED;
+    box-shadow: 0 0 0 5px #102A43;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 260px repeat(6, 1fr);
+    min-height: 210px;
+  }
+
+  .row + .row { border-top: 1px solid var(--line); }
+
+  .lane {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 23px 28px 23px 34px;
+    border-right: 1px solid var(--line);
+  }
+
+  .lane::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 28px;
+    bottom: 28px;
+    width: 7px;
+    border-radius: 0 7px 7px 0;
+  }
+
+  .product .lane { background: linear-gradient(90deg, #FFF8F4, #FFFFFF); }
+  .brand .lane { background: linear-gradient(90deg, #F6F7FF, #FFFFFF); }
+  .market .lane { background: linear-gradient(90deg, #F2FCF8, #FFFFFF); }
+  .product .lane::before { background: var(--product); }
+  .brand .lane::before { background: var(--brand); }
+  .market .lane::before { background: var(--market); }
+
+  .lane-en {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .13em;
+  }
+
+  .product .lane-en { color: var(--product); }
+  .brand .lane-en { color: var(--brand); }
+  .market .lane-en { color: var(--market); }
+
+  .lane-cn {
+    margin-top: 9px;
+    font-size: 27px;
+    line-height: 1.1;
+    font-weight: 900;
+  }
+
+  .lane-note {
+    margin-top: 9px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  .month-cell {
+    position: relative;
+    min-width: 0;
+    padding: 20px 14px;
+    border-right: 1px solid var(--line);
+  }
+
+  .month-cell:last-child { border-right: 0; }
+
+  .month-cell::before {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(216,226,236,.9) 12%, rgba(216,226,236,.9) 88%, transparent);
+  }
+
+  .event {
+    position: relative;
+    margin: 0 0 11px 15px;
+    padding: 12px 13px 12px 16px;
+    border-radius: 11px;
+    font-size: 18px;
+    line-height: 1.38;
+    font-weight: 700;
+    box-shadow: 0 3px 8px rgba(16,42,67,.04);
+  }
+
+  .event:last-child { margin-bottom: 0; }
+
+  .event::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 20px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .event.product { background: var(--product-soft); color: #A43E20; border: 1px solid #FFD7C9; }
+  .event.product::before { background: var(--product); box-shadow: 0 0 0 4px #FFF6F1; }
+  .event.brand { background: var(--brand-soft); color: #384CB2; border: 1px solid #D9DEFF; }
+  .event.brand::before { background: var(--brand); box-shadow: 0 0 0 4px #F5F6FF; }
+  .event.market { background: var(--market-soft); color: #0B765A; border: 1px solid #C9F0E3; }
+  .event.market::before { background: var(--market); box-shadow: 0 0 0 4px #F1FCF7; }
+
+  .dash {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 21px 0 0 31px;
+    color: #A0AEC0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .dash::before {
+    content: "";
+    width: 17px;
+    height: 1px;
+    background: #CBD5E0;
+  }
+
+  .bottom {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .bottom-card {
+    position: relative;
+    min-height: 130px;
+    padding: 22px 25px 20px 28px;
+    border-radius: 17px;
+    background: rgba(255,255,255,.89);
+    border: 1px solid #E2EAF2;
+  }
+
+  .bottom-card .card-label {
+    font-size: 16px;
+    font-weight: 900;
+    color: #486581;
+    letter-spacing: .11em;
+  }
+
+  .bottom-card .card-title {
+    margin-top: 7px;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .bottom-card .card-text {
+    margin-top: 6px;
+    color: #627D98;
+    font-size: 16px;
+    line-height: 1.42;
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 30px 4px 0;
+    color: #627D98;
+    font-size: 16px;
+  }
+
+  .legend-item { display: inline-flex; align-items: center; gap: 9px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .legend-dot.product { background: var(--product); }
+  .legend-dot.brand { background: var(--brand); }
+  .legend-dot.market { background: var(--market); }
+  .footnote { margin-left: auto; font-size: 15px; color: #829AB1; }
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <div class="eyebrow">2026 H1 OVERSEAS MARKETING</div>
+      <div class="source">数据来源：2026 年年中述职 · H1 海外各国营销事件概览</div>
+    </div>
+
+    <h1>H1 海外营销日历时间轴</h1>
+    <p class="subtitle">以产品上新制造消费热点，以品牌节点扩大市场声量，以重点开业推动海外市场拓展。</p>
+
+    <section class="headline-row">
+      <div class="summary">
+        <div class="summary-label">H1 核心节奏</div>
+        <div class="summary-text">月月有产品动作，关键节点有品牌战役，重点市场持续扩店。</div>
+      </div>
+      <div class="metric product">
+        <div class="bar"></div>
+        <div><div class="metric-value">8</div><div class="metric-label">产品 / 餐饮上线节点</div></div>
+      </div>
+      <div class="metric brand">
+        <div class="bar"></div>
+        <div><div class="metric-value">5</div><div class="metric-label">品牌 / 营销关键节点</div></div>
+      </div>
+      <div class="metric market">
+        <div class="bar"></div>
+        <div><div class="metric-value">6</div><div class="metric-label">重点门店开业 · 4 个市场</div></div>
+      </div>
+    </section>
+
+    <section class="calendar-card">
+      <div class="calendar-header">
+        <div class="axis-title">Marketing calendar</div>
+        <div class="month"><div class="month-num">01</div><div class="month-name">JANUARY · 1月</div></div>
+        <div class="month"><div class="month-num">02</div><div class="month-name">FEBRUARY · 2月</div></div>
+        <div class="month"><div class="month-num">03</div><div class="month-name">MARCH · 3月</div></div>
+        <div class="month"><div class="month-num">04</div><div class="month-name">APRIL · 4月</div></div>
+        <div class="month"><div class="month-num">05</div><div class="month-name">MAY · 5月</div></div>
+        <div class="month"><div class="month-num">06</div><div class="month-num" style="display:none"></div><div class="month-name">JUNE · 6月</div></div>
+      </div>
+
+      <div class="row product">
+        <div class="lane">
+          <div class="lane-en">PRODUCT LAUNCH</div>
+          <div class="lane-cn">产品上新</div>
+          <div class="lane-note">新品与餐饮产品节奏</div>
+        </div>
+        <div class="month-cell"><div class="event product">大红袍系列上新</div></div>
+        <div class="month-cell"><div class="event product">五黑系列上新</div></div>
+        <div class="month-cell"><div class="event product">五黄系列上新</div><div class="event product">布蕾系列上新</div></div>
+        <div class="month-cell"><div class="event product">杏果蔬系列上新</div></div>
+        <div class="month-cell"><div class="event product">抹茶系列上新</div><div class="event product">龙井系列上新</div></div>
+        <div class="month-cell"><div class="event product">世界杯团餐产品上线</div></div>
+      </div>
+
+      <div class="row brand">
+        <div class="lane">
+          <div class="lane-en">BRAND / KEY MOMENT</div>
+          <div class="lane-cn">品牌 / 关键节点</div>
+          <div class="lane-note">节日、代言、渠道营销</div>
+        </div>
+        <div class="month-cell"><div class="event brand">元旦活动</div><div class="event brand">鞠婧祎全球品牌代言人官宣</div></div>
+        <div class="month-cell"><div class="event brand">春节（CNY）营销</div></div>
+        <div class="month-cell"><div class="dash">无重点节点</div></div>
+        <div class="month-cell"><div class="dash">无重点节点</div></div>
+        <div class="month-cell"><div class="event brand">美国母亲节营销</div></div>
+        <div class="month-cell"><div class="event brand">渠道促销及库存物料支持</div></div>
+      </div>
+
+      <div class="row market">
+        <div class="lane">
+          <div class="lane-en">MARKET EXPANSION</div>
+          <div class="lane-cn">市场拓展</div>
+          <div class="lane-note">重点市场开业布局</div>
+        </div>
+        <div class="month-cell"><div class="dash">无开业节点</div></div>
+        <div class="month-cell"><div class="event market">英国首店开业</div><div class="event market">美国南加州<br>San Gabriel Valley 店开业</div></div>
+        <div class="month-cell"><div class="event market">澳洲首店开业</div><div class="event market">韩国双店齐开</div></div>
+        <div class="month-cell"><div class="dash">无开业节点</div></div>
+        <div class="month-cell"><div class="event market">澳洲 Chinatown 店开业</div></div>
+        <div class="month-cell"><div class="dash">无开业节点</div></div>
+      </div>
+    </section>
+
+    <section class="bottom">
+      <div class="bottom-card">
+        <div class="card-label">01 · PRODUCT RHYTHM</div>
+        <div class="card-title">连续 6 个月保持产品动作</div>
+        <div class="card-text">通过产品系列上新与世界杯团餐产品，持续制造消费者沟通与门店转化机会。</div>
+      </div>
+      <div class="bottom-card">
+        <div class="card-label">02 · BRAND MOMENT</div>
+        <div class="card-title">节日 × 代言 × 渠道协同</div>
+        <div class="card-text">覆盖元旦、春节、母亲节、代言人及渠道推广等重点品牌节点。</div>
+      </div>
+      <div class="bottom-card">
+        <div class="card-label">03 · MARKET EXPANSION</div>
+        <div class="card-title">4 个市场，6 家重点门店</div>
+        <div class="card-text">英国、美国、澳洲、韩国持续开店，为本地声量与新店冷启动提供营销支持。</div>
+      </div>
+    </section>
+
+    <footer class="legend">
+      <span class="legend-item"><span class="legend-dot product"></span>产品上新</span>
+      <span class="legend-item"><span class="legend-dot brand"></span>品牌 / 关键节点</span>
+      <span class="legend-item"><span class="legend-dot market"></span>市场拓展</span>
+      <span class="footnote">注：时间轴仅基于源文件中的 H1 事件文本及原始表格整理，未新增经营结果数据。</span>
+    </footer>
+  </main>
+</body>
+</html>
